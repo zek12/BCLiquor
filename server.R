@@ -4,7 +4,6 @@ library(dplyr)
 
 bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 # print(head(bcl))
-# print(str(bcl))
 
 server <- function(input, output) {
     
