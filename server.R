@@ -1,6 +1,8 @@
 # library(shiny)
+# if (!require("DT")) install.packages('DT')
 library(ggplot2)
 library(dplyr)
+library(DT)
 
 bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 # print(head(bcl))
@@ -89,8 +91,17 @@ server <- function(input, output) {
         }
     })
     
-    output$results <- renderTable({
-        filtered()
+    # output$results <- renderTable({
+    #     filtered()
+    # })
+    
+    output$results <- DT::renderDataTable({
+        datatable(filtered(),
+                  options = list(
+                      columnDefs = list(list(searchable = FALSE, targets = c(2,3))) 
+                      # 2,3 means columns 2,3 from table, which are Subtype and Country
+                  ),
+                  filter = 'top')
     })
 
 }

@@ -1,8 +1,22 @@
 # library(shiny)
 
 ui <- fluidPage(
-    titlePanel("BC Liquor Store prices", windowTitle = "MyApp"),
-    div("this is blue", style = "color: blue;"),
+    titlePanel(title = div(
+        img(src = "wine-glass.png", height = 50, width = 'auto'),
+        "BC Liquor Store prices",
+        windowTitle = "BCLiquor")
+        ),
+    
+    # div("this is blue 2", style = "color: blue;"),
+    # navbarPage("App Title",
+    #            tabPanel("Plot"),
+    #            navbarMenu("More",
+    #                       tabPanel("Summary"),
+    #                       "----",
+    #                       "Section header",
+    #                       tabPanel("Table")
+    #            )
+    # ),
     sidebarLayout(
         sidebarPanel(
             sliderInput("priceInput", "Price", min = 0, max = 100, value = c(25, 40), pre = "$"),
@@ -11,15 +25,32 @@ ui <- fluidPage(
             #              selected = "WINE"),
             # selectInput("countryInput", "Country",
             #             choices = c("CANADA", "FRANCE", "ITALY")),
+            conditionalPanel(
+                "input.priceInput[0] >=50",
+                "The price entered is >= 50"
+            ),
             uiOutput("typeOutput"),
             uiOutput("subtypeOutput"),
             uiOutput("countryOutput")
         ),
         mainPanel(
-            plotOutput("coolplot"),
-            br(), br(),
-            strong(textOutput("results_number")),
-            tableOutput("results")
+            # plotOutput("coolplot"),
+            # br(), br(),
+            # strong(textOutput("results_number")),
+            # tableOutput("results")
+            tabsetPanel(
+                tabPanel("Histogram",
+                         br(),
+                         plotOutput("coolplot")
+                         ),
+                tabPanel("Results",
+                         br(),
+                         strong(textOutput("results_number")),
+                         br(),
+                         DT::dataTableOutput("results")
+                         # tableOutput("results")
+                         )
+            )
         )
     )
 )
