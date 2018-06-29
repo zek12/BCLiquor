@@ -1,11 +1,12 @@
 # library(shiny)
 
 ui <- fluidPage(
-    titlePanel(title = div(
-        img(src = "wine-glass.png", height = 50, width = 'auto'),
-        "BC Liquor Store prices",
-        windowTitle = "BCLiquor")
-        ),
+    titlePanel(windowTitle = "BCLiquor",
+               div(
+                   img(src = "wine-glass.png", height = 50, width = 'auto'),
+                   "BC Liquor Store prices"
+                   )
+               ),
     
     # div("this is blue 2", style = "color: blue;"),
     # navbarPage("App Title",
